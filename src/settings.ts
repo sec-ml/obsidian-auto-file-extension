@@ -101,7 +101,7 @@ export class AutoFileExtensionSettingTab extends PluginSettingTab {
 				const btn_up = arrows.createEl("button", { cls: "afe-arrow-btn" });
 				btn_up.setText("↑");
 				btn_up.disabled = index === 0;
-				btn_up.addEventListener("click", async () => {
+				btn_up.addEventListener("click", () => void (async () => {
 					if (index <= 0) return;
 					const prev = rules[index - 1];
 					const curr = rules[index];
@@ -111,12 +111,12 @@ export class AutoFileExtensionSettingTab extends PluginSettingTab {
 					}
 					await this.plugin.saveSettings();
 					renderRules();
-				});
+				})());
 
 				const btn_down = arrows.createEl("button", { cls: "afe-arrow-btn" });
 				btn_down.setText("↓");
 				btn_down.disabled = index === rules.length - 1;
-				btn_down.addEventListener("click", async () => {
+				btn_down.addEventListener("click", () => void (async () => {
 					if (index >= rules.length - 1) return;
 					const curr = rules[index];
 					const next = rules[index + 1];
@@ -126,7 +126,7 @@ export class AutoFileExtensionSettingTab extends PluginSettingTab {
 					}
 					await this.plugin.saveSettings();
 					renderRules();
-				});
+				})());
 
 				// Right col: two rows to fit content
 				const body = card.createDiv({ cls: "afe-rule-body" });
@@ -146,25 +146,25 @@ export class AutoFileExtensionSettingTab extends PluginSettingTab {
 				label_input.placeholder = "Label";
 				// error after loading since adding label. Load blank label if not set
 				label_input.value = rule.label ?? "";
-				label_input.addEventListener("input", async () => {
+				label_input.addEventListener("input", () => void (async () => {
 					rule.label = label_input.value;
 					await this.plugin.saveSettings();
-				});
+				})());
 
 				const ext_input = row1.createEl("input", { type: "text", cls: "afe-input afe-input-short" });
 				ext_input.placeholder = "Extension";
 				ext_input.value = rule.extension;
-				ext_input.addEventListener("input", async () => {
+				ext_input.addEventListener("input", () => void (async () => {
 					rule.extension = ext_input.value;
 					await this.plugin.saveSettings();
-				});
+				})());
 
 				const btn_remove = row1.createEl("button", { cls: "afe-remove-btn mod-warning", text: "Remove" });
-				btn_remove.addEventListener("click", async () => {
+				btn_remove.addEventListener("click", () => void (async () => {
 					rules.splice(index, 1);
 					await this.plugin.saveSettings();
 					renderRules();
-				});
+				})());
 
 				// row 2 - directory and/or pattern
 				const row2 = body.createDiv({ cls: "afe-rule-row" });
@@ -173,20 +173,20 @@ export class AutoFileExtensionSettingTab extends PluginSettingTab {
 					const dir_input = row2.createEl("input", { type: "text", cls: "afe-input" });
 					dir_input.placeholder = "Directory (empty=root, dir/, dir/*)";
 					dir_input.value = rule.directory;
-					dir_input.addEventListener("input", async () => {
+					dir_input.addEventListener("input", () => void (async () => {
 						rule.directory = dir_input.value;
 						await this.plugin.saveSettings();
-					});
+					})());
 				}
 
 				if (rule.type === "content" || rule.type === "both") {
 					const pattern_input = row2.createEl("input", { type: "text", cls: "afe-input" });
 					pattern_input.placeholder = "Regex pattern (e.g. <[A-Z][\\w.]*)";
 					pattern_input.value = rule.pattern;
-					pattern_input.addEventListener("input", async () => {
+					pattern_input.addEventListener("input", () => void (async () => {
 						rule.pattern = pattern_input.value;
 						await this.plugin.saveSettings();
-					});
+					})());
 				}
 			});
 		};
