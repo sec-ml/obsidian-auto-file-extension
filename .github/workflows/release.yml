@@ -1,5 +1,7 @@
 # Build and package auto-file-extension when a version tag is pushed.
-# For manual runs enter version number and the workflow creates the tag.
+# For manual runs: enter version number and the workflow creates the tag.
+# Release notes are extracted from CHANGELOG.md (since the last
+# release - i.e. can include multiple versions).
 
 name: Release
 
@@ -35,11 +37,22 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Extract changelog for this version
+      - name: Extract changelog since last release
         id: changelog
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          VERSION="${{ github.event.inputs.tag || github.ref_name }}"
-          NOTES=$(awk "/^## ${VERSION}/{found=1; next} found && /^## /{exit} found{print}" CHANGELOG.md)
+          # Get the last published release tag, empty if none
+          prev_rel=$(gh release list --limit 1 --json tagName --jq '.[0].tagName // ""' 2>/dev/null || echo "")
+
+          if [ -z "$prev_rel" ]; then
+            # No previous release — include everything in the changelog
+            NOTES=$(awk "/^## /{found=1} found{print}" CHANGELOG.md)
+          else
+            # Include all sections from the top down until before the previous release
+            NOTES=$(awk "/^## /{found=1} found && /^## ${prev_rel}/{exit} found{print}" CHANGELOG.md)
+          fi
+
           echo "notes<<EOF" >> $GITHUB_OUTPUT
           echo "$NOTES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
