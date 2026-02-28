@@ -1,6 +1,6 @@
 {
 	"name": "auto-file-extension",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Obsidian plugin to set file extensions automatically based on directory and content rules.",
 	"main": "main.js",
 	"type": "module",
