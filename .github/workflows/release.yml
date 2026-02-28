@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           # For manual runs, get the tag ref
-          ref: ${{ github.event.inputs.tag || github.ref }}
+          ref: ${{ github.event.inputs.tag && format('refs/tags/{0}', github.event.inputs.tag) || github.ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
