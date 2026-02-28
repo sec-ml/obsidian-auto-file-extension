@@ -4,7 +4,7 @@ Obsidian plugin that automatically changes file extensions based on a trickle-do
 
 ## Warning
 
-Obsidian isn't designed to use non .md files, and for the most part, won't see them. If you're using other MD-like filetypes, you'll need to also ensure that Obsidian can see them (unless you want to rename files and have them disappear from view. Maybe you do?). See: https://github.com/sec-ml/anything-as-md
+Obsidian isn't designed to use non .md files, and for the most part, won't see them. If you're using other MD-like filetypes, you'll need to also ensure that Obsidian can see them (unless you want to rename files and have them disappear from view. Maybe you do?). See: https://github.com/sec-ml/obsidian-anything-as-md
 
 If you use Sync, you also need to make sure Obsidian is set to process unsupported files.
 
