@@ -4,6 +4,7 @@
 
 - Added CHANGELOG.md
 - Added release notes extraction from CHANGELOG.md in release workflow
+- Changed `release.yml` to pass in tag to the workflow
 
 ## 1.0.3
 

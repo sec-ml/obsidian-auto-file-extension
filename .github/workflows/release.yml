@@ -6,7 +6,11 @@ on:
   push:
     tags:
       - "[0-9]+.[0-9]+.[0-9]+"
-  workflow_dispatch: # can run manually if required
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag"
+        required: true
 
 jobs:
   release:
@@ -17,6 +21,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # For manual runs, get the tag ref
+          ref: ${{ github.event.inputs.tag || github.ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -33,7 +40,7 @@ jobs:
       - name: Extract changelog for this version
         id: changelog
         run: |
-          VERSION="${GITHUB_REF_NAME}"
+          VERSION="${{ github.event.inputs.tag || github.ref_name }}"
           NOTES=$(awk "/^## ${VERSION}/{found=1; next} found && /^## /{exit} found{print}" CHANGELOG.md)
           echo "notes<<EOF" >> $GITHUB_OUTPUT
           echo "$NOTES" >> $GITHUB_OUTPUT
@@ -42,6 +49,7 @@ jobs:
       - name: Create release and upload plugin files
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
           body: ${{ steps.changelog.outputs.notes }}
           files: |
             main.js
