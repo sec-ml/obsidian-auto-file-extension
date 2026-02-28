@@ -30,9 +30,19 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Extract changelog for this version
+        id: changelog
+        run: |
+          VERSION="${GITHUB_REF_NAME}"
+          NOTES=$(awk "/^## ${VERSION}/{found=1; next} found && /^## /{exit} found{print}" CHANGELOG.md)
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Create release and upload plugin files
         uses: softprops/action-gh-release@v2
         with:
+          body: ${{ steps.changelog.outputs.notes }}
           files: |
             main.js
             manifest.json
