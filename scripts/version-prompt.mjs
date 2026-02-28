@@ -1,3 +1,4 @@
+/* global process */
 import { readFileSync, writeFileSync } from "fs";
 import { createInterface } from "readline";
 import { execSync } from "child_process";
