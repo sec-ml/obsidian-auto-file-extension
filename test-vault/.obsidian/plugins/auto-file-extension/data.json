@@ -1,0 +1,43 @@
+{
+  "rules": [
+    {
+      "type": "directory",
+      "label": "root",
+      "directory": "/",
+      "extension": "down"
+    },
+    {
+      "type": "content",
+      "label": "just content",
+      "pattern": "letyoudown",
+      "extension": "let"
+    },
+    {
+      "type": "content",
+      "label": "codefencecheck",
+      "pattern": "```[^\\n]*\\n[\\s\\S]*?```",
+      "extension": "run"
+    },
+    {
+      "type": "both",
+      "directory": "___never",
+      "label": "numcharscheck",
+      "pattern": "^.{10}$",
+      "extension": "and"
+    },
+    {
+      "type": "directory",
+      "label": "just dir check, after dir and content rule",
+      "directory": "___never",
+      "extension": "you"
+    },
+    {
+      "type": "directory",
+      "label": "catch all, should catch nothing if ordered last",
+      "directory": "/*",
+      "extension": "mdx"
+    }
+  ],
+  "revertToMd": true,
+  "silentRename": true
+}
