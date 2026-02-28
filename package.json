@@ -9,6 +9,7 @@
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
 		"test-copy": "node scripts/copy-to-test-vault.mjs",
 		"version": "node version-bump.mjs && git add manifest.json versions.json",
+		"bump": "node scripts/version-prompt.mjs",
 		"lint": "eslint ."
 	},
 	"keywords": [],

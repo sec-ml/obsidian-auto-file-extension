@@ -1,0 +1,41 @@
+# vscode
+.vscode 
+
+# Intellij
+*.iml
+.idea
+
+# npm
+node_modules
+
+# Don't include the compiled main.js file in the repo.
+# They should be uploaded to GitHub releases instead.
+main.js
+
+# Exclude sourcemaps
+*.map
+
+# obsidian
+data.json
+
+# Exclude macOS Finder (System Explorer) View States
+.DS_Store
+
+# Test vault: copied plugin files (run npm run test-copy to populate)
+test-vault/.obsidian/plugins/auto-file-extension/main.js
+test-vault/.obsidian/plugins/auto-file-extension/styles.css
+test-vault/.obsidian/plugins/auto-file-extension/manifest.json
+# But plugin data should be committed for testing:
+!test-vault/.obsidian/plugins/auto-file-extension/data.json
+
+# Specifically override main.js and data.json rules - plugins used for testing.
+!test-vault/.obsidian/plugins/anything-as-md/
+!test-vault/.obsidian/plugins/anything-as-md/main.js
+!test-vault/.obsidian/plugins/anything-as-md/data.json
+
+
+# Other test vault files
+test-vault/.obsidian/workspace.json
+test-vault/.obsidian/core-plugins.json
+test-vault/.obsidian/appearance.json
+test-vault/.obsidian/app.json
