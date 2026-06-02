@@ -10,6 +10,18 @@ If you use Sync, you also need to make sure Obsidian is set to process unsupport
 
 Lastly, file renaming won't work if a file already exists with the exact same filename. Sounds obvious, but if you're testing with a bunch of `Untitled` files with different extensions, it's something to be aware of.
 
+## How it works
+
+Auto File Extension decides what to do from the file's **extension** and its **content**. Content rules always read the file from disk (`vault.read()`). For the current extension, it trusts Obsidian's `file.extension` by default — but if another plugin spoofs that (e.g. [Anything as MD](https://github.com/sec-ml/obsidian-anything-as-md) reports custom extensions as `md`), enable **Get extension from file path** so it reads the true extension from `file.path` instead. It never inspects the metadata cache, markdown classification, or UI badges.
+
+## Using with other plugins
+
+Automatic run on file save is **off by default** to avoid race conditions with other file-processing plugins (Linter, Templater, etc.).
+
+To trigger Auto File Extension manually, use the command palette: **"Fix extension for current file"** — runs on the active file. Command ID: `auto-file-extension:fix-current-file`
+
+Auto File Extension does not try to coordinate ordering with other plugins. If you need a specific processing chain (e.g. Linter → Templater → Auto File Extension), configure the upstream plugin to run its command as its last step.
+
 ## Install
 
 1. Copy `main.js`, `manifest.json`, and `styles.css` into your vault at `.obsidian/plugins/auto-file-extension/`.
