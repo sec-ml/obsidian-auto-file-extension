@@ -157,7 +157,7 @@ export default class AutoFileExtensionPlugin extends Plugin {
 			resolved_ext ?? (this.settings.revertToMd ? "md" : null);
 
 		if (this.settings.debugToConsole) {
-			console.log("[AFE]", {
+			console.debug("[AFE]", {
 				path: file.path,
 				"file.extension": file.extension,
 				pathExtension: realExtension(file),
