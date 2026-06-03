@@ -1,43 +1,40 @@
 {
   "rules": [
     {
-      "type": "directory",
-      "label": "root",
-      "directory": "/",
-      "extension": "down"
-    },
-    {
       "type": "content",
-      "label": "just content",
-      "pattern": "letyoudown",
-      "extension": "let"
-    },
-    {
-      "type": "content",
-      "label": "codefencecheck",
-      "pattern": "```[^\\n]*\\n[\\s\\S]*?```",
-      "extension": "run"
+      "label": "Content regex match",
+      "pattern": "@regex",
+      "extension": "mdx"
     },
     {
       "type": "both",
-      "directory": "___never",
-      "label": "numcharscheck",
-      "pattern": "^.{10}$",
-      "extension": "and"
+      "directory": "both-folder",
+      "label": "Directory and content (both)",
+      "pattern": "@both",
+      "extension": "svx"
     },
     {
       "type": "directory",
-      "label": "just dir check, after dir and content rule",
-      "directory": "___never",
-      "extension": "you"
+      "label": "Specific directory",
+      "directory": "specific-folder",
+      "extension": "rmd"
     },
     {
       "type": "directory",
-      "label": "catch all, should catch nothing if ordered last",
-      "directory": "/*",
-      "extension": "mdx"
+      "label": "Recursive directory",
+      "directory": "recursive-folder/*",
+      "extension": "qmd"
+    },
+    {
+      "type": "directory",
+      "label": "Vault root",
+      "directory": "/",
+      "extension": "mdown"
     }
   ],
   "revertToMd": true,
-  "silentRename": true
+  "showRenameNotifications": true,
+  "runOnModify": false,
+  "usePathExtension": false,
+  "debugToConsole": false
 }
