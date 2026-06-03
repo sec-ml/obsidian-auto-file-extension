@@ -1,9 +1,9 @@
 {
 	"id": "auto-file-extension",
 	"name": "Auto File Extension",
-	"version": "1.0.4",
-	"minAppVersion": "1.9.12",
-	"description": "Automatically change file extensions based on a trickle-down ruleset. Rules can match directory path, file content, or both.",
+	"version": "1.0.5",
+	"minAppVersion": "1.12.3",
+	"description": "Automatically change file extensions based on a trickle-down ruleset. Rules can match directory path, file content (using RegEx), or both.",
 	"author": "sec-ml",
 	"isDesktopOnly": false
 }
