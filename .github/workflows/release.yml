@@ -62,6 +62,7 @@ jobs:
         with:
           tag_name: ${{ github.event.inputs.tag || github.ref_name }}
           body: ${{ steps.changelog.outputs.notes }}
+          generate_release_notes: true
           files: |
             main.js
             manifest.json
