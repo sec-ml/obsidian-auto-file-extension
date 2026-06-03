@@ -31,13 +31,19 @@ export type Rule = DirectoryRule | ContentRule | BothRule;
 export interface AutoFileExtensionSettings {
 	rules: Rule[];
 	revertToMd: boolean;
-	silentRename: boolean;
+	showRenameNotifications: boolean;
+	runOnModify: boolean;
+	usePathExtension: boolean;
+	debugToConsole: boolean;
 }
 
 export const DEFAULT_SETTINGS: AutoFileExtensionSettings = {
 	rules: [],
 	revertToMd: false,
-	silentRename: false,
+	showRenameNotifications: false,
+	runOnModify: false,
+	usePathExtension: false,
+	debugToConsole: false,
 };
 
 export class AutoFileExtensionSettingTab extends PluginSettingTab {
@@ -57,10 +63,57 @@ export class AutoFileExtensionSettingTab extends PluginSettingTab {
 			cls: "setting-item-description",
 		});
 
+		const runOnModifyDesc = activeDocument.createDocumentFragment();
+		runOnModifyDesc.append(
+			"Rules are evaluated on every file modification/save."
+		);
+		runOnModifyDesc.append(activeDocument.createElement("br"));
+		runOnModifyDesc.append(activeDocument.createElement("br"));
+		const runOnModifyHint = activeDocument.createElement("strong");
+		runOnModifyHint.append(
+			'Run manually from command palette with "',
+			"Fix extension for current file",
+			'"'
+		);
+		runOnModifyDesc.append(runOnModifyHint);
+
+		new Setting(containerEl)
+			.setName("Run automatically on file modification/save")
+			.setDesc(runOnModifyDesc)
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.runOnModify)
+					.onChange(async (value) => {
+						this.plugin.settings.runOnModify = value;
+						await this.plugin.saveSettings();
+					})
+			);
+
+		const pathExtDesc = activeDocument.createDocumentFragment();
+		pathExtDesc.append(
+			"The current file's extension is read from the on-disk file path. Enable this if another plugin is interfering with Obsidian's TFile.extension property (e.g. "
+		);
+		const aamLink = activeDocument.createElement("a");
+		aamLink.href = "obsidian://show-plugin?id=anything-as-md";
+		aamLink.textContent = "Anything as Markdown";
+		pathExtDesc.append(aamLink, ").");
+
+		new Setting(containerEl)
+			.setName("Get extension from file path")
+			.setDesc(pathExtDesc)
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.usePathExtension)
+					.onChange(async (value) => {
+						this.plugin.settings.usePathExtension = value;
+						await this.plugin.saveSettings();
+					})
+			);
+
 		new Setting(containerEl)
 			.setName("Revert to .md when no rule matches")
 			.setDesc(
-				"When enabled, files that do not match any rule will be renamed back to .md."
+				"Files that do not match any rule are renamed back to .md."
 			)
 			.addToggle((toggle) =>
 				toggle
@@ -72,15 +125,27 @@ export class AutoFileExtensionSettingTab extends PluginSettingTab {
 			);
 
 		new Setting(containerEl)
-			.setName("Disable rename notifications")
+			.setName("Enable rename notifications")
 			.setDesc(
-				"When enabled, no notification is shown when a file extension is changed."
+				"A notification is shown when a file extension is changed."
 			)
 			.addToggle((toggle) =>
 				toggle
-					.setValue(this.plugin.settings.silentRename)
+					.setValue(this.plugin.settings.showRenameNotifications)
 					.onChange(async (value) => {
-						this.plugin.settings.silentRename = value;
+						this.plugin.settings.showRenameNotifications = value;
+						await this.plugin.saveSettings();
+					})
+			);
+
+		new Setting(containerEl)
+			.setName("Debug to console")
+			.setDesc("Log file processing details to the console.")
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.debugToConsole)
+					.onChange(async (value) => {
+						this.plugin.settings.debugToConsole = value;
 						await this.plugin.saveSettings();
 					})
 			);
@@ -181,7 +246,7 @@ export class AutoFileExtensionSettingTab extends PluginSettingTab {
 
 				if (rule.type === "content" || rule.type === "both") {
 					const pattern_input = row2.createEl("input", { type: "text", cls: "afe-input" });
-					pattern_input.placeholder = "Regex pattern (e.g. <[A-Z][\\w.]*)";
+					pattern_input.placeholder = "Regex pattern (e.g. ^draft)";
 					pattern_input.value = rule.pattern;
 					pattern_input.addEventListener("input", () => void (async () => {
 						rule.pattern = pattern_input.value;

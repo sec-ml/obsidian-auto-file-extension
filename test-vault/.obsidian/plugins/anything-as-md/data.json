@@ -1,3 +1,4 @@
 {
-  "extensionsList": "mdx, svx, rmd, let, down, run, and, you"
+  "extensionsList": "mdx, svx, rmd, qmd, mdown",
+  "indexLikeMarkdown": false
 }

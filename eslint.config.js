@@ -8,6 +8,8 @@ export default tseslint.config(
 		languageOptions: {
 			globals: {
 				...globals.browser,
+				activeDocument: "readonly",
+				activeWindow: "readonly",
 			},
 			parserOptions: {
 				projectService: {
@@ -29,7 +31,10 @@ export default tseslint.config(
 		"eslint.config.js",
 		"version-bump.mjs",
 		"versions.json",
-		"main.js",
+		"package.json",
+		"package-lock.json",
+		"scripts/**",
 		"test-vault/**",
+		"main.js",
 	]),
 );
