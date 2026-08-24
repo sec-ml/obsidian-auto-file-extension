@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.6 - 2026-08-24
+
+- Migrated settings to [declarative API](https://docs.obsidian.md/plugins/guides/migrate-declarative-settings)
+- Fixed two setting descriptions rendering as `[object DocumentFragment]`
+- Bumped minimum Obsidian version to 1.13.0 (for declarative settings API)
+- Bumped `eslint-plugin-obsidianmd` to `^0.4.2`
+- Added artefact attestations (for [plugin page](https://community.obsidian.md/plugins/auto-file-extension) Scorecard)
+- Added `prettier` (with `.prettierrc` and `.prettierignore`)
+
 ## 1.0.5 - 2026-06-03
 
 - Added 'Run automatically on file modification/save' option (off by default)
