@@ -16,10 +16,10 @@ const DEST = join(ROOT, "test-vault", ".obsidian", "plugins", PLUGIN_ID);
 const files = ["main.js", "manifest.json", "styles.css"];
 
 async function copyToTestVault() {
-	await mkdir(DEST, { recursive: true });
-	for (const file of files) {
-		await copyFile(join(ROOT, file), join(DEST, file));
-	}
+  await mkdir(DEST, { recursive: true });
+  for (const file of files) {
+    await copyFile(join(ROOT, file), join(DEST, file));
+  }
 }
 
-copyToTestVault()
+copyToTestVault();

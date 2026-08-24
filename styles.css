@@ -1,81 +1,81 @@
 .afe-rules-container {
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-	margin: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
 }
 
 .afe-rule-card {
-	display: flex;
-	flex-direction: row;
-	align-items: flex-start;
-	gap: 8px;
-	padding: 8px 10px;
-	border: 1px solid var(--background-modifier-border);
-	border-radius: 6px;
-	background: var(--background-secondary);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  background: var(--background-secondary);
 }
 
 /* left col reorder arrows */
 .afe-rule-arrows {
-	display: flex;
-	flex-direction: column;
-	gap: 6px;
-	flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 .afe-arrow-btn {
-	width: 28px;
-	/* 30px == 28px of input fields + border */
-	height: 30px;
-	padding: 0;
-	cursor: pointer;
+  width: 28px;
+  /* 30px == 28px of input fields + border */
+  height: 30px;
+  padding: 0;
+  cursor: pointer;
 }
 
 .afe-arrow-btn:disabled {
-	opacity: 0.3;
-	cursor: default;
+  opacity: 0.3;
+  cursor: default;
 }
 
 /* main fields */
 .afe-rule-body {
-	display: flex;
-	flex-direction: column;
-	gap: 6px;
-	flex: 1;
-	min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
 }
 
 .afe-rule-row {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 6px;
-	flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 /* input fields */
 .afe-input {
-	flex: 1;
-	min-width: 80px;
+  flex: 1;
+  min-width: 80px;
 
-	height: 28px;
-	padding: 0 8px;
-	border: 1px solid var(--background-modifier-border);
-	border-radius: 4px;
-	background: var(--background-primary);
-	color: var(--text-normal);
-	font-size: var(--font-ui-small);
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: var(--font-ui-small);
 }
 
 .afe-input-short {
-	flex: 0 0 100px;
-	min-width: 80px;
+  flex: 0 0 100px;
+  min-width: 80px;
 }
 
 .afe-remove-btn {
-	flex-shrink: 0;
-	height: 28px;
-	padding: 0 10px;
-	cursor: pointer;
+  flex-shrink: 0;
+  height: 28px;
+  padding: 0 10px;
+  cursor: pointer;
 }
