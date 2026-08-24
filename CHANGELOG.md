@@ -8,6 +8,7 @@
 - Bumped `eslint-plugin-obsidianmd` to `^0.4.2`
 - Added artefact attestations (for [plugin page](https://community.obsidian.md/plugins/auto-file-extension) Scorecard)
 - Added `prettier` (with `.prettierrc` and `.prettierignore`)
+- Added rule ordering test script to `test-vault`
 
 ## 1.0.5 - 2026-06-03
 
