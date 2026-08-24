@@ -1,5 +1,7 @@
 Script to test renames. Open dev tools with `Cmd/Ctrl` + `Option/Alt` + `I` and paste into console.
 
+### Verify renaming
+
 First part performs and checks renames
 
 ```js
@@ -74,5 +76,46 @@ First part performs and checks renames
     console.log(`${was}   reverted to   ${orig}`);
   }
   console.log('[AFE] revert complete.');
+})();
+```
+
+### Verify rule ordering
+
+Script to check that rule re-ordering works. It makes changes then reverts in one go.
+
+```js
+(async () => {
+  const afe = app.plugins.plugins['auto-file-extension'];
+  if (!afe) return console.error('[AFE] plugin not enabled');
+
+  const extOf = (p) => { const d = p.lastIndexOf('.'); return d === -1 ? '' : p.slice(d + 1); };
+
+  const rules = afe.settings.rules;
+  const contentIdx = rules.findIndex(r => r.label === 'Content regex match');
+  const rootIdx = rules.findIndex(r => r.label === 'Vault root');
+  const file = app.vault.getFiles().find(f => f.basename === 'content-regex-match' && !f.path.includes('/'));
+
+  const swap = async () => {
+    [rules[contentIdx], rules[rootIdx]] = [rules[rootIdx], rules[contentIdx]];
+    await afe.saveSettings();
+  };
+
+  const table = {};
+  const mark = async (stage, expected) => {
+    const before = extOf(file.path);
+    await afe.fixExtension(file);
+    const after = extOf(file.path);
+    table[stage] = { before, after, expected, correct: after === expected ? 'Y' : 'N' };
+  };
+
+  await mark('before rule swap', 'mdx');
+
+  await swap();
+  await mark('after rule swap', 'mdown');
+
+  await swap();
+  await mark('reverted', 'mdx');
+
+  console.table(table);
 })();
 ```
