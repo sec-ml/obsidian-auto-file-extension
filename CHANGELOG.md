@@ -1,6 +1,15 @@
 # Changelog
 
-## 1.0.6 - 2026-08-24
+## 1.1.0 - 2026-08-25
+
+- Bump to new minor version, given Obsidian 1.13.0 requirement.
+- Fix eslint warning on Obsidian community page:
+```
+Unsafe assignment of an error or any typed value
+@typescript-eslint/no-unsafe-assignment
+```
+
+## 1.0.6 - 2026-08-24 _(no release)_
 
 - Migrated settings to [declarative API](https://docs.obsidian.md/plugins/guides/migrate-declarative-settings)
 - Fixed two setting descriptions rendering as `[object DocumentFragment]`
